@@ -1,8 +1,5 @@
-# DC-carECU
 # DC-carECU 🚗🔧
-
 ---
-
 ## 🖼️
 ![DC-carECU — Diagnóstico Automotriz](portada.png)
 ---
