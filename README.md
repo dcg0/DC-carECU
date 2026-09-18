@@ -42,7 +42,4 @@ https://dcg0.github.io/DC-carECU/
 | `index.html` | Página web completa del proyecto |
 
 ---
-
-> *"Libertad para conocer tu vehículo, siempre y en cualquier lugar"*
-
-© 2026 DC-carECU 
+🌐https://github.com/dcg0/DC-elm327HC/releases/tag/v0.1.0
