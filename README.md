@@ -6,8 +6,7 @@
 ---
 
 ## 🌅 Descripción
-
-En la orilla de la playa, bajo un cielo dorado del atardecer, tu vehículo y tú listos para cualquier camino. **DC-carECU** transforma tu celular en un escáner profesional que conecta con la computadora de tu auto mediante el adaptador **ELM327** por Bluetooth.
+ tu vehículo y tú listos para cualquier camino. **DC-carECU** transforma tu celular en un escáner profesional que conecta con la computadora de tu auto mediante el adaptador **ELM327** por Bluetooth.
 
 Tu auto en la palma de tu mano, a donde quiera que vayas. 🌊🚗
 
@@ -17,9 +16,9 @@ https://dcg0.github.io/DC-carECU/
 
 - 📊 **Monitoreo en vivo** — RPM, temperatura, velocidad, carga del motor, presión de combustible… todo en tiempo real
 - ⚠️ **Diagnóstico completo** — lee y borra códigos de falla del tablero
-- 🔧 **Mantenimiento avanzado** — reinicios de aceite, frenos, inyectores, filtro DPF y más
-- 🎮 **Simulador interactivo** — prueba la conexión ECU paso a paso desde la página
-- 📱 **Para Android 9+** — optimizada y ligera, funciona perfecto en tu ZTE
+- 🔧 **Mantenimiento avanzado** — reinicios , frenos, inyectores, filtro DPF y más
+- 🎮 ** interactive** — prueba la conexión ECU paso a paso desde la página
+- 📱 **Para Android 9+** — optimizada y ligera, funciona perfecto en tu movil
 - 🔗 **Conexión simple** — emparejas por Bluetooth → listo
 
 ---
@@ -46,4 +45,4 @@ https://dcg0.github.io/DC-carECU/
 
 > *"Libertad para conocer tu vehículo, siempre y en cualquier lugar"*
 
-© 2026 DC-carECU · dcg0
+© 2026 DC-carECU 
