@@ -7,21 +7,24 @@
   <style>
     :root{--night:#07152d;--deep:#0b2945;--sea:#087e91;--cyan:#27d4d8;--sand:#f6c56b;--foam:#e8fbf6;--ink:#10243a;--muted:#b6d5dc}
     *{box-sizing:border-box;margin:0;padding:0;font-family:"Segoe UI",system-ui,sans-serif}
-    body{min-height:100vh;color:var(--ink);background:radial-gradient(circle at 75% 8%,#213d69 0,#0d2442 30%,var(--night) 68%),linear-gradient(180deg,var(--night),var(--sea));overflow-x:hidden}
-    body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.25;background:linear-gradient(175deg,transparent 0 64%,#f6c56b 64.2%,transparent 64.8%),linear-gradient(185deg,transparent 0 73%,#27d4d8 73.2%,transparent 73.7%)}
-    .container{width:min(900px,100%);margin:auto;padding:24px 18px 56px;position:relative}
-    header{text-align:center;color:#fff;margin-bottom:28px}
-    .portada{width:100%;max-height:430px;object-fit:cover;border-radius:24px;box-shadow:0 18px 45px #0008;border:1px solid #ffffff38}
+    body{min-height:100vh;color:var(--ink);background:linear-gradient(180deg,#75d8f2 0%,#b8f0ee 24%,#f8d78b 49.7%,#142f57 50%,#07152d 74%,#087e91 100%);overflow-x:hidden}
+    body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.42;background:radial-gradient(circle at 18% 18%,#fff6b880 0 4%,transparent 5%),radial-gradient(circle at 82% 66%,#fff 0 1px,transparent 2px),radial-gradient(circle at 91% 59%,#fff 0 1px,transparent 2px),linear-gradient(175deg,transparent 0 47%,#f6c56b 47.2%,transparent 48%),linear-gradient(185deg,transparent 0 73%,#27d4d8 73.2%,transparent 73.7%)}
+    .container{width:min(900px,100%);margin:auto;padding:24px 18px 56px;position:relative;z-index:1}
+    header{text-align:center;color:#fff;margin-bottom:28px;animation:fadeUp .7s ease both}
+    .portada{width:100%;max-height:430px;object-fit:cover;border-radius:24px;box-shadow:0 18px 45px #0008;border:2px solid #ffffff80;position:relative}
     h1{font-size:clamp(2rem,6vw,3.6rem);letter-spacing:2px;margin:20px 0 8px;text-shadow:0 4px 18px #0008}
     .subtitulo{color:var(--muted);font-size:1.1rem}
-    .bloque,.download-card{background:linear-gradient(135deg,#f4fffbf2,#d8f3eef0);border:1px solid #ffffff80;border-radius:22px;padding:25px;margin:20px 0;box-shadow:0 12px 30px #0005}
+    .bloque,.download-card{background:linear-gradient(135deg,#f4fffbf2,#d8f3eef0);border:1px solid #ffffff80;border-radius:22px;padding:25px;margin:20px 0;box-shadow:0 12px 30px #0005;backdrop-filter:blur(10px);transition:transform .25s ease,box-shadow .25s ease}
+    .bloque:hover{transform:translateY(-3px);box-shadow:0 18px 35px #0006}
     h2{color:#075b71;font-size:1.35rem;margin-bottom:12px}.bloque p,.bloque li{line-height:1.7}.bloque ul{padding-left:22px;margin-top:8px}
-    .img-pantalla{display:block;width:100%;border-radius:15px;margin:14px 0;box-shadow:0 8px 22px #07344d40}
+    .img-pantalla{display:block;width:100%;border-radius:15px;margin:14px 0;box-shadow:0 8px 22px #07344d40;transition:transform .25s ease}.img-pantalla:hover{transform:scale(1.012)}
     .zona-juego{background:#061018eb;border:2px solid var(--cyan);border-radius:22px;padding:24px;margin:24px 0;color:#fff;box-shadow:0 0 28px #27d4d833}
     .zona-juego h2{color:var(--cyan);text-align:center}.zona-juego>p{text-align:center;color:#9eb9c2;margin-bottom:18px}
     .paso{background:#0d2630;border:1px solid #27d4d855;border-radius:13px;padding:15px;margin:12px 0}.paso-titulo{color:var(--cyan);font-weight:700;margin-bottom:6px}.paso-valor{color:#dff}.boton-paso,.btn{border:0;border-radius:11px;padding:13px 20px;font-weight:700;cursor:pointer;transition:.2s}.boton-paso{width:100%;margin-top:10px;background:linear-gradient(135deg,#087e91,#27d4d8);color:#03222d}.boton-paso:hover,.btn:hover{transform:translateY(-2px);filter:brightness(1.08)}.boton-paso:disabled{opacity:.45;cursor:not-allowed}.barra-fondo{height:9px;background:#061018;border-radius:9px;margin-top:10px;overflow:hidden}.barra-progreso{height:100%;width:0;background:linear-gradient(90deg,var(--cyan),var(--sand));transition:width .5s}.dato{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid #ffffff20;font-family:monospace}.etiqueta{color:var(--cyan)}.valor{color:var(--sand);font-weight:700}.oculto{display:none}.exito{color:#6dffca;font-weight:700}
-    .download-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:18px;margin-top:18px}.download-card{margin:0;padding:0;overflow:hidden;background:#092239eF;color:#fff;border-color:#27d4d855}.download-card img{width:100%;height:160px;object-fit:cover}.download-body{padding:18px}.download-body h3{color:var(--sand);margin-bottom:7px}.download-body p{color:#c0dbe0;min-height:48px;font-size:.94rem}.btn{display:inline-block;text-decoration:none;margin-top:14px;margin-right:6px;background:linear-gradient(135deg,#f0b94c,#f6d37b);color:#13243a}.btn.secondary{background:linear-gradient(135deg,#087e91,#27d4d8);color:#03222d}.nota{font-size:.82rem;color:#9dbbc3;margin-top:12px}
-    footer{text-align:center;color:#b6d5dc;margin-top:35px;font-size:.9rem}
+    .download-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:18px;margin-top:18px}.download-card{margin:0;padding:0;overflow:hidden;background:#092239eF;color:#fff;border-color:#27d4d855}.download-card:hover{transform:translateY(-6px);box-shadow:0 20px 38px #0008}.download-card img{width:100%;height:160px;object-fit:cover}.download-body{padding:18px}.download-body h3{color:var(--sand);margin-bottom:7px}.download-body p{color:#c0dbe0;min-height:48px;font-size:.94rem}.btn{display:inline-block;text-decoration:none;margin-top:14px;margin-right:6px;background:linear-gradient(135deg,#f0b94c,#f6d37b);color:#13243a}.btn.secondary{background:linear-gradient(135deg,#087e91,#27d4d8);color:#03222d}.nota{font-size:.82rem;color:#9dbbc3;margin-top:12px}
+    footer{text-align:center;color:#e8fbf6;margin-top:35px;font-size:.9rem}.footer-line{width:90px;height:3px;margin:0 auto 14px;border-radius:4px;background:linear-gradient(90deg,#f6c56b 0 50%,var(--cyan) 50%)}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+    @media (max-width:600px){.container{padding:14px 12px 40px}.bloque,.zona-juego{padding:18px;border-radius:18px}.portada{border-radius:18px;max-height:300px}h1{font-size:2.2rem}.download-grid{grid-template-columns:1fr}.btn{display:block;text-align:center;margin-right:0}.dato{font-size:.78rem}}
   </style>
 </head>
 <body>
@@ -45,7 +48,7 @@
         <article class="download-card"><img src="portada.png" alt="Versión DC-carECU"><div class="download-body"><h3>DC-carECU</h3><p>Proyecto web y aplicación de diagnóstico automotriz.</p><a class="btn secondary" href="https://github.com/dcg0/DC-carECU" target="_blank" rel="noopener">Abrir repositorio</a><p class="nota">No hay una APK publicada en este repositorio actualmente.</p></div></article>
       </div>
     </section>
-    <footer>© 2026 DC-carECU · dcg0</footer>
+    <footer><div class="footer-line"></div>© 2026 DC-carECU · dcg0</footer>
   </main>
   <script>
     const $=id=>document.getElementById(id);
