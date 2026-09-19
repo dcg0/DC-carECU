@@ -1,226 +1,57 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DC-ELM327 · Diagnóstico Automotriz</title>
-    <style>
-        * {margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif;}
-
-        body {
-            background: linear-gradient(180deg, 
-                #076B99 0%, #0EA5E9 25%, #38BDF8 50%,
-                #FCD34D 75%, #FBBF24 88%, #F97316 100%);
-            min-height: 100vh; color: #1e293b;
-        }
-
-        .container {max-width: 780px; margin: 0 auto; padding: 30px 20px 60px;}
-
-        /* === CABECERA === */
-        header {text-align: center; margin-bottom: 40px;}
-        .portada {width: 100%; border-radius: 16px; box-shadow: 0 8px 30px rgba(7,107,153,0.35); margin-bottom: 20px;}
-        h1 {font-size: 2.6rem; color: #fff; text-shadow: 0 2px 6px rgba(0,0,0,0.3); letter-spacing: 2px;}
-        .subtitulo {color: #fff; font-size: 1.1rem; margin-top: 10px; opacity: 0.92;}
-
-        /* === BLOQUES INFORMATIVOS === */
-        .bloque {
-            background: #FEF3C7; border-radius: 16px; padding: 24px; margin-bottom: 22px;
-            border-left: 5px solid #F59E0B; box-shadow: 0 6px 20px rgba(7,107,153,0.18);
-        }
-        .bloque h2 {color: #B45309; font-size: 1.3rem; margin-bottom: 12px;}
-        .bloque p, .bloque li {color: #422006; line-height: 1.75; font-size: 0.98rem;}
-        .bloque ul {padding-left: 22px; margin-top: 10px;}
-        .img-pantalla {width: 100%; border-radius: 12px; margin: 14px 0; box-shadow: 0 4px 15px rgba(0,0,0,0.15);}
-        .qr-img {width: 200px; border-radius: 12px; margin: 15px auto; display: block; box-shadow: 0 4px 15px rgba(7,107,153,0.3);}
-        .btn {
-            display: inline-block; margin-top: 15px; padding: 15px 40px;
-            background: linear-gradient(135deg, #0284C7, #0EA5E9); color: white;
-            text-decoration: none; border-radius: 12px; font-weight: bold; font-size: 1.1rem;
-            box-shadow: 0 4px 15px rgba(2,132,199,0.4); transition: transform 0.3s ease;
-        }
-        .btn:hover {transform: translateY(-3px);}
-
-        /* === SIMULADOR INTERACTIVO === */
-        .zona-juego {
-            background: #050510; border-radius: 20px; padding: 25px; margin: 30px 0;
-            border: 3px solid #00FF88; box-shadow: 0 0 30px rgba(0,255,136,0.25);
-        }
-        .zona-juego h2 {color: #00FF88; text-align: center; margin-bottom: 10px;}
-        .zona-juego > p {color: #999; text-align: center; margin-bottom: 20px; font-size: 0.9rem;}
-        .paso {
-            background: #0a1a0f; border-radius: 12px; padding: 15px; margin-bottom: 12px;
-            border: 1px solid #00FF8844;
-        }
-        .paso-titulo {color: #00FF88; font-weight: bold; margin-bottom: 6px; font-size: 0.95rem;}
-        .paso-valor {color: #9f9; font-family: monospace; font-size: 0.9rem; min-height: 24px;}
-        .boton-paso {
-            background: linear-gradient(135deg, #009944, #00DD66); border: none; border-radius: 8px;
-            padding: 10px 20px; color: white; font-weight: bold; cursor: pointer;
-            margin-top: 8px; width: 100%; transition: all 0.3s ease;
-        }
-        .boton-paso:disabled {background: #224433; color: #555; cursor: not-allowed;}
-        .boton-paso:hover:not(:disabled) {transform: scale(1.01); box-shadow: 0 0 12px rgba(0,255,100,0.4);}
-        .barra-fondo {height: 10px; background: #111; border-radius: 5px; margin-top: 8px; overflow: hidden;}
-        .barra-progreso {height: 100%; width: 0%; background: linear-gradient(90deg, #00FF88, #00CCFF); border-radius: 5px; transition: width 0.6s ease;}
-        .datos-vivos {margin-top: 12px;}
-        .dato {display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid #223; font-family: monospace; font-size: 0.9rem;}
-        .etiqueta {color: #00CCFF;}
-        .valor {color: #FFDD00; font-weight: bold; min-width: 60px; text-align: right;}
-        .oculto {display: none;}
-        .exito {color: #00FF88; font-weight: bold; margin-top: 8px;}
-        .fallo {color: #FF4444; font-weight: bold; margin-top: 8px;}
-
-        footer {text-align: center; margin-top: 50px; color: #fff; font-size: 0.9rem; opacity: 0.8;}
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DC-carECU · Diagnóstico Automotriz</title>
+  <style>
+    :root{--night:#07152d;--deep:#0b2945;--sea:#087e91;--cyan:#27d4d8;--sand:#f6c56b;--foam:#e8fbf6;--ink:#10243a;--muted:#b6d5dc}
+    *{box-sizing:border-box;margin:0;padding:0;font-family:"Segoe UI",system-ui,sans-serif}
+    body{min-height:100vh;color:var(--ink);background:radial-gradient(circle at 75% 8%,#213d69 0,#0d2442 30%,var(--night) 68%),linear-gradient(180deg,var(--night),var(--sea));overflow-x:hidden}
+    body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.25;background:linear-gradient(175deg,transparent 0 64%,#f6c56b 64.2%,transparent 64.8%),linear-gradient(185deg,transparent 0 73%,#27d4d8 73.2%,transparent 73.7%)}
+    .container{width:min(900px,100%);margin:auto;padding:24px 18px 56px;position:relative}
+    header{text-align:center;color:#fff;margin-bottom:28px}
+    .portada{width:100%;max-height:430px;object-fit:cover;border-radius:24px;box-shadow:0 18px 45px #0008;border:1px solid #ffffff38}
+    h1{font-size:clamp(2rem,6vw,3.6rem);letter-spacing:2px;margin:20px 0 8px;text-shadow:0 4px 18px #0008}
+    .subtitulo{color:var(--muted);font-size:1.1rem}
+    .bloque,.download-card{background:linear-gradient(135deg,#f4fffbf2,#d8f3eef0);border:1px solid #ffffff80;border-radius:22px;padding:25px;margin:20px 0;box-shadow:0 12px 30px #0005}
+    h2{color:#075b71;font-size:1.35rem;margin-bottom:12px}.bloque p,.bloque li{line-height:1.7}.bloque ul{padding-left:22px;margin-top:8px}
+    .img-pantalla{display:block;width:100%;border-radius:15px;margin:14px 0;box-shadow:0 8px 22px #07344d40}
+    .zona-juego{background:#061018eb;border:2px solid var(--cyan);border-radius:22px;padding:24px;margin:24px 0;color:#fff;box-shadow:0 0 28px #27d4d833}
+    .zona-juego h2{color:var(--cyan);text-align:center}.zona-juego>p{text-align:center;color:#9eb9c2;margin-bottom:18px}
+    .paso{background:#0d2630;border:1px solid #27d4d855;border-radius:13px;padding:15px;margin:12px 0}.paso-titulo{color:var(--cyan);font-weight:700;margin-bottom:6px}.paso-valor{color:#dff}.boton-paso,.btn{border:0;border-radius:11px;padding:13px 20px;font-weight:700;cursor:pointer;transition:.2s}.boton-paso{width:100%;margin-top:10px;background:linear-gradient(135deg,#087e91,#27d4d8);color:#03222d}.boton-paso:hover,.btn:hover{transform:translateY(-2px);filter:brightness(1.08)}.boton-paso:disabled{opacity:.45;cursor:not-allowed}.barra-fondo{height:9px;background:#061018;border-radius:9px;margin-top:10px;overflow:hidden}.barra-progreso{height:100%;width:0;background:linear-gradient(90deg,var(--cyan),var(--sand));transition:width .5s}.dato{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid #ffffff20;font-family:monospace}.etiqueta{color:var(--cyan)}.valor{color:var(--sand);font-weight:700}.oculto{display:none}.exito{color:#6dffca;font-weight:700}
+    .download-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:18px;margin-top:18px}.download-card{margin:0;padding:0;overflow:hidden;background:#092239eF;color:#fff;border-color:#27d4d855}.download-card img{width:100%;height:160px;object-fit:cover}.download-body{padding:18px}.download-body h3{color:var(--sand);margin-bottom:7px}.download-body p{color:#c0dbe0;min-height:48px;font-size:.94rem}.btn{display:inline-block;text-decoration:none;margin-top:14px;margin-right:6px;background:linear-gradient(135deg,#f0b94c,#f6d37b);color:#13243a}.btn.secondary{background:linear-gradient(135deg,#087e91,#27d4d8);color:#03222d}.nota{font-size:.82rem;color:#9dbbc3;margin-top:12px}
+    footer{text-align:center;color:#b6d5dc;margin-top:35px;font-size:.9rem}
+  </style>
 </head>
 <body>
-    <div class="container">
-        <!-- === CABECERA === -->
-        <header>
-            <img src="portada.png" alt="DC-ELM327" class="portada">
-            <h1>DC-ELM327</h1>
-            <p class="subtitulo">Diagnóstico Automotriz · Conecta con tu vehículo</p>
-        </header>
-
-        <!-- === ¿QUÉ ES? === -->
-        <div class="bloque">
-            <h2>🚗 ¿Qué es DC-ELM327?</h2>
-            <p>Aplicación que se conecta por Bluetooth con el adaptador ELM327 en el puerto OBD2 de tu auto. Te muestra en tiempo real todos los datos de sensores, códigos de falla, mantenimiento y rendimiento del motor.</p>
-        </div>
-
-        <!-- === SIMULADOR INTERACTIVO ECU === -->
-        <div class="zona-juego">
-            <h2>🔧 SIMULADOR DE CONEXIÓN ECU</h2>
-            <p>Toca los botones para conectar el módulo y monitorear el motor</p>
-
-            <!-- Paso 1: Bluetooth -->
-            <div class="paso" id="p1">
-                <div class="paso-titulo">PASO 1 — Conexión Bluetooth</div>
-                <div class="paso-valor" id="v1">Esperando acción...</div>
-                <button class="boton-paso" id="b1" onclick="conectarBT()">🔌 Conectar ELM327</button>
-            </div>
-
-            <!-- Paso 2: Inicialización -->
-            <div class="paso oculto" id="p2">
-                <div class="paso-titulo">PASO 2 — Inicialización Módulo</div>
-                <div class="paso-valor" id="v2">Enviando comandos...</div>
-                <div class="barra-fondo"><div class="barra-progreso" id="barra2"></div></div>
-                <button class="boton-paso" id="b2" onclick="iniciarELM()" disabled>⏳ Bloqueado</button>
-            </div>
-
-            <!-- Paso 3: ECU -->
-            <div class="paso oculto" id="p3">
-                <div class="paso-titulo">PASO 3 — Comunicación con ECU</div>
-                <div class="paso-valor" id="v3">Detectando protocolo...</div>
-                <button class="boton-paso" id="b3" onclick="conectarECU()" disabled>⏳ Bloqueado</button>
-            </div>
-
-            <!-- Paso 4: Monitoreo en vivo -->
-            <div class="paso oculto" id="p4">
-                <div class="paso-titulo">PASO 4 — MONITOREO EN VIVO ✅</div>
-                <div class="paso-valor exito">CONECTADO — Leyendo sensores...</div>
-                <div class="datos-vivos" id="datos-vivos">
-                    <div class="dato"><span class="etiqueta">RPM Motor</span><span class="valor" id="d-rpm">---</span></div>
-                    <div class="dato"><span class="etiqueta">Temp. Motor</span><span class="valor" id="d-temp">---</span></div>
-                    <div class="dato"><span class="etiqueta">Carga Motor</span><span class="valor" id="d-carga">---</span></div>
-                    <div class="dato"><span class="etiqueta">Presión Combustible</span><span class="valor" id="d-presion">---</span></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- === PANTALLAS DE LA APP === -->
-        <div class="bloque">
-            <h2>📱 Interfaz de la Aplicación</h2>
-            <img src="abajo1.png" alt="Conexión y Datos" class="img-pantalla">
-            <img src="abajo2.png" alt="Funciones Avanzadas" class="img-pantalla">
-        </div>
-
-        <!-- === FUNCIONES === -->
-        <div class="bloque">
-            <h2>⚙️ Funciones Principales</h2>
-            <ul>
-                <li>✅ Datos en tiempo real: velocidad, RPM, temperatura, consumo</li>
-                <li>⚠️ Lectura y borrado de códigos de error</li>
-                <li>🔧 Reinicios de mantenimiento: aceite, frenos, inyectores, DPF</li>
-                <li>📊 Freeze Frame — captura de valores en falla</li>
-                <li>🔋 Calibración de batería, cuerpo de aceleración y más</li>
-            </ul>
-        </div>
-
-        <!-- === DESCARGA === -->
-        <div class="bloque" style="text-align: center;">
-            <h2>📲 Descargar DC-ELM327</h2>
-            <p>Escanea con tu celular o toca el botón</p>
-            <img src="qrqr.png" alt="Código QR" class="qr-img">
-            <a href="https://github.com/dcg0/DCecuelm327" target="_blank" class="btn">⬇️ Descargar APK desde GitHub</a>
-        </div>
-
-        <footer>
-            © 2026 DC-ELM327 · dcg0 · Todos los derechos reservados
-        </footer>
-    </div>
-
-    <script>
-        // === PASO 1: Conectar Bluetooth ===
-        function conectarBT() {
-            const v1 = document.getElementById('v1');
-            const b1 = document.getElementById('b1');
-            v1.innerHTML = 'Buscando dispositivos...';
-            b1.disabled = true; b1.innerText = '⏳ Conectando...';
-            
-            setTimeout(() => {
-                v1.innerHTML = '<span class="exito">✓ DC-ELM327 v2.1 — Conectado por Bluetooth</span>';
-                document.getElementById('p2').classList.remove('oculto');
-                const b2 = document.getElementById('b2');
-                b2.disabled = false; b2.innerText = '📤 Enviar ATZ + Configuración';
-            }, 2000);
-        }
-
-        // === PASO 2: Inicializar ELM ===
-        function iniciarELM() {
-            const v2 = document.getElementById('v2');
-            const barra = document.getElementById('barra2');
-            const b2 = document.getElementById('b2');
-            b2.disabled = true; b2.innerText = '⏳ Procesando...';
-            
-            v2.innerHTML = 'ATZ → Reiniciando módulo...';
-            setTimeout(() => { barra.style.width = '25%'; v2.innerHTML = 'ATE0 → Eco desactivado...'; }, 800);
-            setTimeout(() => { barra.style.width = '50%'; v2.innerHTML = 'ATL1 → Líneas activas...'; }, 1600);
-            setTimeout(() => { barra.style.width = '75%'; v2.innerHTML = 'Detectando protocolo OBD2...'; }, 2400);
-            setTimeout(() => {
-                barra.style.width = '100%';
-                v2.innerHTML = '<span class="exito">✓ ELM327 listo — Protocolo: ISO 15765-4 (CAN 500kbps)</span>';
-                document.getElementById('p3').classList.remove('oculto');
-                const b3 = document.getElementById('b3');
-                b3.disabled = false; b3.innerText = '📡 Conectar a ECU del vehículo';
-            }, 3200);
-        }
-
-        // === PASO 3: Conectar ECU ===
-        function conectarECU() {
-            const v3 = document.getElementById('v3');
-            const b3 = document.getElementById('b3');
-            b3.disabled = true; b3.innerText = '⏳ Conectando...';
-            
-            v3.innerHTML = 'Solicitando identificación del vehículo...';
-            setTimeout(() => { v3.innerHTML = 'Leyendo VIN...'; }, 1500);
-            setTimeout(() => { v3.innerHTML = 'Verificando disponibilidad de sensores...'; }, 3000);
-            setTimeout(() => {
-                v3.innerHTML = '<span class="exito">✓ ECU respondiendo — 32 sensores activos</span>';
-                document.getElementById('p4').classList.remove('oculto');
-                iniciarMonitoreo();
-            }, 4500);
-        }
-
-        // === PASO 4: Datos en vivo ===
-        function iniciarMonitoreo() {
-            setInterval(() => {
-                document.getElementById('d-rpm').innerText = Math.floor(750 + Math.random() * 450);
-                document.getElementById('d-temp').innerText = (82 + Math.random() * 6).toFixed(1) + '°C';
-                document.getElementById('d-carga').innerText = Math.floor(18 + Math.random() * 35) + '%';
-                document.getElementById('d-presion').innerText = (38 + Math.random() * 8).toFixed(1) + ' PSI';
-            }, 800);
-        }
-    </script>
+  <main class="container">
+    <header>
+      <img src="portadanoche.png" alt="DC-carECU de noche" class="portada">
+      <h1>DC-carECU</h1><p class="subtitulo">Diagnóstico automotriz · Tu vehículo, bajo cualquier cielo</p>
+    </header>
+    <section class="bloque"><h2>🚗 Diagnóstico en la palma de tu mano</h2><p>Conecta tu celular con el adaptador ELM327 por Bluetooth y consulta en tiempo real los datos de sensores, códigos de falla, mantenimiento y rendimiento del motor.</p></section>
+    <section class="zona-juego"><h2>🔧 SIMULADOR DE CONEXIÓN ECU</h2><p>Prueba el flujo de conexión y monitoreo desde esta página.</p>
+      <div class="paso"><div class="paso-titulo">PASO 1 — Bluetooth</div><div class="paso-valor" id="v1">Esperando acción...</div><button class="boton-paso" id="b1" onclick="conectarBT()">🔌 Conectar ELM327</button></div>
+      <div class="paso oculto" id="p2"><div class="paso-titulo">PASO 2 — Inicialización</div><div class="paso-valor" id="v2">Enviando comandos...</div><div class="barra-fondo"><div class="barra-progreso" id="barra2"></div></div><button class="boton-paso" id="b2" onclick="iniciarELM()" disabled>⏳ Bloqueado</button></div>
+      <div class="paso oculto" id="p3"><div class="paso-titulo">PASO 3 — Comunicación con ECU</div><div class="paso-valor" id="v3">Detectando protocolo...</div><button class="boton-paso" id="b3" onclick="conectarECU()" disabled>⏳ Bloqueado</button></div>
+      <div class="paso oculto" id="p4"><div class="paso-titulo">PASO 4 — MONITOREO EN VIVO ✅</div><div class="paso-valor exito">CONECTADO — Leyendo sensores...</div><div id="datos-vivos"><div class="dato"><span class="etiqueta">RPM Motor</span><span class="valor" id="d-rpm">---</span></div><div class="dato"><span class="etiqueta">Temp. Motor</span><span class="valor" id="d-temp">---</span></div><div class="dato"><span class="etiqueta">Carga Motor</span><span class="valor" id="d-carga">---</span></div><div class="dato"><span class="etiqueta">Presión Combustible</span><span class="valor" id="d-presion">---</span></div></div></div>
+    </section>
+    <section class="bloque"><h2>📱 Interfaz de la aplicación</h2><img src="abajo1.png" alt="Conexión y datos" class="img-pantalla"><img src="abajo2.png" alt="Funciones avanzadas" class="img-pantalla"></section>
+    <section class="bloque"><h2>⚙️ Funciones principales</h2><ul><li>Datos en tiempo real: velocidad, RPM, temperatura y consumo.</li><li>Lectura y borrado de códigos de error.</li><li>Reinicios de mantenimiento: aceite, frenos, inyectores y DPF.</li><li>Freeze Frame y herramientas de diagnóstico.</li></ul></section>
+    <section class="bloque"><h2>📲 Descarga las aplicaciones</h2><p>Elige la versión que deseas instalar. La versión debug tiene descarga directa desde la publicación oficial.</p>
+      <div class="download-grid">
+        <article class="download-card"><img src="portadanoche.png" alt="Versión DC-ELM327 debug"><div class="download-body"><h3>DC-ELM327 · Debug</h3><p>APK de pruebas y diagnóstico con el diseño nocturno.</p><a class="btn" href="https://github.com/dcg0/DC-ELM327/releases/download/v2.7.10-debug/DC-ELM327-debug.apk">⬇️ Descargar APK</a><a class="btn secondary" href="https://github.com/dcg0/DC-ELM327" target="_blank" rel="noopener">Repositorio</a></div></article>
+        <article class="download-card"><img src="portada.png" alt="Versión DC-carECU"><div class="download-body"><h3>DC-carECU</h3><p>Proyecto web y aplicación de diagnóstico automotriz.</p><a class="btn secondary" href="https://github.com/dcg0/DC-carECU" target="_blank" rel="noopener">Abrir repositorio</a><p class="nota">No hay una APK publicada en este repositorio actualmente.</p></div></article>
+      </div>
+    </section>
+    <footer>© 2026 DC-carECU · dcg0</footer>
+  </main>
+  <script>
+    const $=id=>document.getElementById(id);
+    function conectarBT(){ $('v1').textContent='Buscando dispositivos...';$('b1').disabled=true;$('b1').textContent='⏳ Conectando...';setTimeout(()=>{$('v1').innerHTML='<span class="exito">✓ DC-ELM327 v2.1 — Conectado por Bluetooth</span>';$('p2').classList.remove('oculto');$('b2').disabled=false;$('b2').textContent='📤 Enviar ATZ + Configuración'},1200)}
+    function iniciarELM(){let b=$('b2');b.disabled=true;b.textContent='⏳ Procesando...';[25,50,75,100].forEach((n,i)=>setTimeout(()=>{$('barra2').style.width=n+'%';$('v2').textContent=n<100?'Detectando protocolo OBD2...':'✓ ELM327 listo — Protocolo ISO 15765-4';if(n===100){$('p3').classList.remove('oculto');$('b3').disabled=false;$('b3').textContent='📡 Conectar a ECU del vehículo'}},(i+1)*500))}
+    function conectarECU(){let b=$('b3');b.disabled=true;b.textContent='⏳ Conectando...';$('v3').textContent='Solicitando identificación del vehículo...';setTimeout(()=>{$('v3').innerHTML='<span class="exito">✓ ECU respondiendo — sensores activos</span>';$('p4').classList.remove('oculto');setInterval(()=>{$('d-rpm').textContent=Math.floor(750+Math.random()*450);$('d-temp').textContent=(82+Math.random()*6).toFixed(1)+'°C';$('d-carga').textContent=Math.floor(18+Math.random()*35)+'%';$('d-presion').textContent=(38+Math.random()*8).toFixed(1)+' PSI'},800)},1800)}
+  </script>
 </body>
 </html>
