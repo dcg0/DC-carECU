@@ -1,5 +1,11 @@
 # DC-carECU 🚗🔧
 
+
+<p align="center">
+  <a href="https://github.com/dcg0/DC-carECU/actions/workflows/security.yml"><img src="https://github.com/dcg0/DC-carECU/actions/workflows/security.yml/badge.svg" alt="Security checks"></a>
+  <a href="https://github.com/dcg0/DC-carECU/security"><img src="https://img.shields.io/badge/security-policy-available-176b46" alt="Security policy available"></a>
+</p>
+
 🔗 [Página oficial](https://dcg0.github.io/DC-carECU/)
 
 ![DC-carECU — Diagnóstico Automotriz](1.png)
