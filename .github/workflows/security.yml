@@ -3,6 +3,7 @@ name: Security checks
 on:
   push:
   pull_request:
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -11,6 +12,7 @@ jobs:
   static-security:
     name: Static security checks
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -34,3 +36,50 @@ jobs:
             echo 'Every target=_blank link must include rel="noopener".' >&2
             exit 1
           fi
+
+      - name: Validate JavaScript and local HTML assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from html.parser import HTMLParser
+          from pathlib import Path
+          import re
+          import subprocess
+          import sys
+
+          html_path = Path('index.html')
+          html = html_path.read_text(encoding='utf-8')
+          scripts = re.findall(r'<script(?:\s[^>]*)?>(.*?)</script>', html, flags=re.DOTALL | re.IGNORECASE)
+          script_path = Path('/tmp/dc-carECU-inline.js')
+          script_path.write_text('\n\n'.join(scripts), encoding='utf-8')
+          syntax = subprocess.run(['node', '--check', str(script_path)], text=True, capture_output=True)
+          if syntax.returncode:
+              sys.stderr.write(syntax.stderr)
+              raise SystemExit('Inline JavaScript syntax validation failed')
+
+          class LocalReferenceParser(HTMLParser):
+              def __init__(self):
+                  super().__init__()
+                  self.references = []
+
+              def handle_starttag(self, tag, attrs):
+                  for name, value in attrs:
+                      if name in {'src', 'href'} and value:
+                          self.references.append(value)
+
+          parser = LocalReferenceParser()
+          parser.feed(html)
+          missing = []
+          for reference in parser.references:
+              if reference.startswith(('http://', 'https://', '//', '#', 'data:', 'mailto:', 'javascript:')):
+                  continue
+              local = reference.split('#', 1)[0].split('?', 1)[0]
+              if local and not (html_path.parent / local).is_file():
+                  missing.append(reference)
+          if missing:
+              raise SystemExit('Missing local HTML assets: ' + ', '.join(sorted(set(missing))))
+          PY
+
+      - name: Check patch whitespace
+        run: git diff --check
